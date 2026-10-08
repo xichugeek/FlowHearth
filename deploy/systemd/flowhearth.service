@@ -1,0 +1,34 @@
+[Unit]
+Description=FlowHearth API
+After=network-online.target mysql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=flowhearth
+Group=flowhearth
+WorkingDirectory=/opt/flowhearth/current/api
+ExecStart=/usr/bin/dotnet /opt/flowhearth/current/api/FlowHearth.Api.dll
+EnvironmentFile=/opt/flowhearth/shared/flowhearth.env
+Environment=ASPNETCORE_URLS=http://127.0.0.1:5100
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+KillSignal=SIGINT
+SyslogIdentifier=flowhearth
+UMask=0027
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+ReadWritePaths=/opt/flowhearth/shared/uploads
+ReadWritePaths=/opt/flowhearth/shared/logs
+ReadWritePaths=/opt/flowhearth/shared/keys
+
+[Install]
+WantedBy=multi-user.target

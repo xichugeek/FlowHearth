@@ -1,0 +1,15 @@
+<Project>
+  <PropertyGroup>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+    <Deterministic>true</Deterministic>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <Authors>FlowHearth contributors</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/xichugeek/FlowHearth</RepositoryUrl>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+</Project>

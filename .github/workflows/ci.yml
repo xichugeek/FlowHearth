@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        # These public credentials are only for the disposable CI database.
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: flowhearth-ci-root
+          MYSQL_DATABASE: flowhearth
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -pflowhearth-ci-root"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=12
+
+    env:
+      FLOWHEARTH_TEST_MYSQL: Server=127.0.0.1;Port=3306;Database=flowhearth;User ID=root;Password=flowhearth-ci-root;SslMode=None
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/flowhearth-web/package-lock.json
+
+      - name: Restore backend
+        run: dotnet restore FlowHearth.sln
+
+      - name: Verify formatting
+        run: dotnet format FlowHearth.sln --verify-no-changes --no-restore
+
+      - name: Build backend
+        run: dotnet build FlowHearth.sln -c Release --no-restore
+
+      - name: Apply and validate migrations
+        env:
+          ConnectionStrings__FlowHearth: Server=127.0.0.1;Port=3306;Database=flowhearth;User ID=root;Password=flowhearth-ci-root;SslMode=None
+          DOTNET_ENVIRONMENT: Testing
+          DevelopmentAdministrator__Username: ci-admin
+          DevelopmentAdministrator__DisplayName: CI Administrator
+          DevelopmentAdministrator__Password: FlowHearth!Ci123456
+        run: |
+          dotnet run --project src/FlowHearth.DbMigrator -c Release --no-build -- migrate
+          dotnet run --project src/FlowHearth.DbMigrator -c Release --no-build -- bootstrap-development-admin
+          dotnet run --project src/FlowHearth.DbMigrator -c Release --no-build -- validate
+          dotnet run --project src/FlowHearth.DbMigrator -c Release --no-build -- migrate
+
+      - name: Test backend
+        run: dotnet test FlowHearth.sln -c Release --no-build --no-restore
+
+      - name: Install frontend dependencies
+        working-directory: web/flowhearth-web
+        run: npm ci
+
+      - name: Validate frontend
+        working-directory: web/flowhearth-web
+        run: |
+          npm run lint
+          npm run typecheck
+          npm run test:run
+          npm run build

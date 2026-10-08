@@ -1,0 +1,91 @@
+# .NET build output
+**/bin/
+**/obj/
+artifacts/
+.artifacts/
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Frontend dependencies and output
+**/node_modules/
+**/dist/
+**/.vite/
+**/.eslintcache
+*.tsbuildinfo
+
+# IDE and OS files
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+.DS_Store
+Thumbs.db
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.env
+!*.env.example
+!*.env.sample
+appsettings.Local.json
+appsettings.*.Local.json
+appsettings.Production.json
+appsettings.*.Production.json
+secrets/
+local-dev-credentials.json
+mysql-bootstrap-once.sql
+mysql-data/
+*.pfx
+*.p12
+*.pem
+*.key
+*.ppk
+*.crt
+*.cer
+*.csr
+*.der
+*.jks
+id_rsa
+id_ed25519
+
+# Runtime state
+logs/
+uploads/
+backup/
+backups/
+.local-data/
+*.log
+*.dmp
+*.db
+*.sqlite
+*.sqlite3
+
+# Database dumps and release packages
+*.sql
+!database/migrations/*.sql
+*.sql.gz
+*.dump
+*.bak
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+
+# Workspace-only side tasks and generated deliverables
+.codex/*
+!.codex/config.toml.example
+outputs/
+
+# Local business data imports (contains customer PII/contact details)
+*.xls
+*.xlsx
+imports/
+data/private/
+
+# Local tooling
+.dotnet/
+.tools/
