@@ -11,7 +11,9 @@ import {
 
 describe('customer format helpers', () => {
   it('formats ISO timestamps for the local workbench', () => {
-    expect(formatChinaDateTime('2026-08-29T13:30:00+08:00')).toBe(
+    const timestamp = new Date(2026, 7, 29, 13, 30).toISOString()
+
+    expect(formatChinaDateTime(timestamp)).toBe(
       '2026-08-29 13:30',
     )
     expect(formatChinaDateTime(null)).toBe('—')

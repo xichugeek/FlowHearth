@@ -58,7 +58,7 @@ dotnet restore .\FlowHearth.sln
 dotnet build .\FlowHearth.sln -c Release --no-restore
 dotnet test .\FlowHearth.sln -c Release --no-build --no-restore
 
-.\scripts\deploy\Build-Release.ps1 -Version V1.0.0
+.\scripts\deploy\Build-Release.ps1 -Version V1.0.1
 ```
 
 脚本在 `.artifacts/` 中生成时间戳目录、`FlowHearth-<timestamp>.tar.gz` 和外部 manifest。发布包是依赖主机 .NET Runtime 的 framework-dependent 产物，不包含生产配置或业务数据；数据库迁移位于包内的 `migrator/migrations/`。

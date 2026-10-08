@@ -98,7 +98,7 @@ npm run build
 
 ## 版本
 
-公开仓库首个版本为 `V1.0.0`。版本标签统一使用大写 `V`，发布内容见 [CHANGELOG.md](CHANGELOG.md)。
+公开仓库首个版本为 `V1.0.0`，当前修订版本为 `V1.0.1`。版本标签统一使用大写 `V`，发布内容见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 安全与隐私
 
