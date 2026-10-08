@@ -76,7 +76,7 @@ npm run dev
 
 ## Episode 006 演示环境
 
-V1.0.2 演示候选变更提供独立、显式的 Demo Seed。仅接受本机非标准端口、`flowhearth_demo_*` 隔离库和开发/演示环境，不自动向默认数据库写入，也不提供清库命令。
+v1.0.2 演示候选变更提供独立、显式的 Demo Seed。仅接受本机非标准端口、`flowhearth_demo_*` 隔离库和开发/演示环境，不自动向默认数据库写入，也不提供清库命令。
 
 初始化、虚构数据规模及本地演示账号说明见 [DEMO_SEED_GUIDE.md](DEMO_SEED_GUIDE.md)。视频路径见 [DEMO_SCENARIOS.md](DEMO_SCENARIOS.md) 和 [截图清单](docs/demo-screenshots/SCREENSHOT_MANIFEST.md)；界面审查、优化和验收分别见 [UI_AUDIT.md](UI_AUDIT.md)、[UI_OPTIMIZATION_REPORT.md](UI_OPTIMIZATION_REPORT.md)、[REGRESSION_REPORT.md](REGRESSION_REPORT.md)。
 
@@ -100,11 +100,11 @@ npm run build
 
 ## 部署
 
-生产构建应在 CI 或开发机完成，服务器只接收不可变发布包。模板按 `/opt/flowhearth`、`flowhearth.service`、`flowhearth.example.com` 和回环端口 `5100` 编写，使用前请替换示例域名。完整步骤、备份和回滚边界见 [部署指南](docs/deployment.md)。
+生产构建应在 CI 或开发机完成，服务器只接收不可变发布包。模板按 `/opt/flowhearth`、`flowhearth.service`、`flowhearth.example.com` 和回环端口 `5100` 编写，使用前请替换示例域名。当前版本升级与隔离演示流程见 [v1.0.2 部署说明](DEPLOYMENT_V1.0.2.md)；完整步骤、备份和回滚边界见 [部署指南](docs/deployment.md)。
 
 ## 版本
 
-公开仓库首个版本为 `V1.0.0`，当前修订版本为 `V1.0.1`。版本标签统一使用大写 `V`，发布内容见 [CHANGELOG.md](CHANGELOG.md)。
+当前迭代版本为 `v1.0.2`。从此版本起标签使用小写 `v`；历史 `V1.0.0`、`V1.0.1` 保留原名。版本内容见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 安全与隐私
 

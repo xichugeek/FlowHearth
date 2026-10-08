@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [string]$ReleaseId = (Get-Date -Format 'yyyyMMddHHmmss'),
-    [string]$Version = 'V1.0.1',
+    [string]$Version = 'v1.0.2',
     [string]$BaseProductionVersion = 'none',
     [string]$MigrationFrom = '0000',
     [string]$MigrationTo = '0017',

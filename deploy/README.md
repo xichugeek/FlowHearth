@@ -12,3 +12,5 @@
 - `scripts/reload-nginx-after-certificate-renewal.sh`：证书续期后检查并重载 Nginx。
 
 模板假定部署根目录是 `/opt/flowhearth`，服务账户是 `flowhearth`，应用仅监听 `127.0.0.1:5100`。使用前必须替换示例域名，并按 [部署指南](../docs/deployment.md) 配置独立数据库账户和 root-only 环境文件。
+
+当前版本的打包、`V1.0.1` 升级与隔离演示初始化见 [v1.0.2 部署说明](../DEPLOYMENT_V1.0.2.md)。

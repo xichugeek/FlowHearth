@@ -2,6 +2,8 @@
 
 本指南描述一个参考的单机 Linux 部署：Nginx 提供 HTTPS 和静态文件，ASP.NET Core 由 systemd 管理，MySQL 使用独立数据库。示例域名是 `flowhearth.example.com`，部署根目录是 `/opt/flowhearth`。
 
+当前版本 `v1.0.2` 的升级范围、验证门槛与隔离 Demo 初始化见 [版本部署说明](../DEPLOYMENT_V1.0.2.md)。从 `V1.0.1` 升级没有新增迁移，已发布的 17 个迁移保持原样。
+
 ## 1. 前置条件
 
 - Linux x64/arm64 主机
@@ -56,12 +58,16 @@ ON flowhearth.* TO 'flowhearth_migrator'@'127.0.0.1';
 ```powershell
 dotnet restore .\FlowHearth.sln
 dotnet build .\FlowHearth.sln -c Release --no-restore
+# 先按开发指南准备专用测试库，并通过受控环境设置 FLOWHEARTH_TEST_MYSQL。
+if (-not $env:FLOWHEARTH_TEST_MYSQL) { throw '真实 MySQL 测试连接未配置。' }
 dotnet test .\FlowHearth.sln -c Release --no-build --no-restore
 
-.\scripts\deploy\Build-Release.ps1 -Version V1.0.1
+.\scripts\deploy\Build-Release.ps1 -Version v1.0.2
 ```
 
 脚本在 `.artifacts/` 中生成时间戳目录、`FlowHearth-<timestamp>.tar.gz` 和外部 manifest。发布包是依赖主机 .NET Runtime 的 framework-dependent 产物，不包含生产配置或业务数据；数据库迁移位于包内的 `migrator/migrations/`。
+
+打包脚本不会执行测试，manifest 的测试数量是调用参数，不能作为通过证据。必须保存真实测试输出并核对 `REGRESSION_REPORT.md`；未配置 MySQL 时提前返回的数据库用例不能算作真实数据库测试。Demo Seed 不包含在运行时发布包中，独立初始化流程见 [DEMO_SEED_GUIDE.md](../DEMO_SEED_GUIDE.md)。构建脚本使用 PowerShell 7。
 
 上传 archive 与外部 manifest 到服务器的临时目录。从可信构建端独立取得 archive SHA-256，并与 manifest 中的 `package.sha256` 一致。以下示例需先用实际时间戳、文件位置和哈希替换占位符：
 
