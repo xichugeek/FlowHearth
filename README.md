@@ -74,6 +74,12 @@ npm run dev
 
 浏览器访问 `http://127.0.0.1:5173`。更完整的本地数据库说明见 [开发指南](docs/development.md)。
 
+## Episode 006 演示环境
+
+V1.0.2 演示候选变更提供独立、显式的 Demo Seed。仅接受本机非标准端口、`flowhearth_demo_*` 隔离库和开发/演示环境，不自动向默认数据库写入，也不提供清库命令。
+
+初始化、虚构数据规模及本地演示账号说明见 [DEMO_SEED_GUIDE.md](DEMO_SEED_GUIDE.md)。视频路径见 [DEMO_SCENARIOS.md](DEMO_SCENARIOS.md) 和 [截图清单](docs/demo-screenshots/SCREENSHOT_MANIFEST.md)；界面审查、优化和验收分别见 [UI_AUDIT.md](UI_AUDIT.md)、[UI_OPTIMIZATION_REPORT.md](UI_OPTIMIZATION_REPORT.md)、[REGRESSION_REPORT.md](REGRESSION_REPORT.md)。
+
 ## 构建与测试
 
 ```powershell

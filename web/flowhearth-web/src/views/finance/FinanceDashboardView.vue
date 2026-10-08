@@ -717,7 +717,7 @@ onMounted(loadDashboard)
 </template>
 
 <style scoped>
-.finance-dashboard-page { max-width: 1680px; }
+.finance-dashboard-page { max-width: 1540px; margin: 0 auto; }
 .finance-dashboard-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
 .finance-dashboard-toolbar div { display: flex; flex-direction: column; gap: 4px; }
 .finance-dashboard-toolbar strong { color: var(--flowhearth-ink); font-size: 18px; }

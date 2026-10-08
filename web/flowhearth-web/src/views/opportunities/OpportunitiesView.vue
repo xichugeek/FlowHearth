@@ -343,11 +343,11 @@ function showError(error: unknown, fallback: string) {
         <strong>{{ total }} 个商机</strong>
       </div>
       <div>
-        <span>在手金额</span>
+        <span>当前可见在手金额</span>
         <strong>{{ formatCurrency(activePipelineAmount) }}</strong>
       </div>
       <div>
-        <span>加权金额</span>
+        <span>当前可见加权金额</span>
         <strong>{{ formatCurrency(weightedPipelineAmount) }}</strong>
       </div>
     </div>
@@ -532,56 +532,60 @@ function showError(error: unknown, fallback: string) {
       />
     </template>
 
-    <div
-      v-else
-      v-loading="loading"
-      class="opportunity-board"
-    >
-      <section
-        v-for="column in opportunityStages"
-        :key="column"
-        class="opportunity-column"
-        @dragover.prevent
-        @drop="dropOnStage(column)"
-      >
-        <header>
-          <span>{{ opportunityStageLabel(column) }}</span>
-          <strong>{{ boardItems(column).length }}</strong>
-        </header>
-        <div class="opportunity-column-body">
-          <article
-            v-for="item in boardItems(column)"
-            :key="item.id"
-            class="opportunity-card"
-            :class="{ draggable: canManage && !isTerminalOpportunityStage(item.stage) }"
-            :draggable="canManage && !isTerminalOpportunityStage(item.stage)"
-            @dragstart="startDrag(item)"
-            @dragend="draggedOpportunityId = null"
-            @click="openOpportunity(item)"
-          >
-            <span>{{ item.code }}</span>
-            <h4>{{ item.title }}</h4>
-            <p>{{ item.customerName }}</p>
-            <div>
-              <strong>{{ formatCurrency(item.expectedAmount) }}</strong>
-              <small>{{ item.probabilityPercent }}%</small>
-            </div>
-            <em>{{ item.expectedCloseDate?.slice(0, 10) || '未设成交日' }}</em>
-          </article>
-          <el-empty
-            v-if="boardItems(column).length === 0"
-            :image-size="44"
-            description="暂无"
-          />
-        </div>
-      </section>
-      <p
-        v-if="total > 100"
-        class="board-limit-note"
-      >
-        看板显示最近更新的 100 个商机，请使用搜索或阶段筛选缩小范围。
+    <template v-else>
+      <p class="board-scroll-hint">
+        看板可横向滚动，点击卡片查看详情。
       </p>
-    </div>
+      <div
+        v-loading="loading"
+        class="opportunity-board"
+      >
+        <section
+          v-for="column in opportunityStages"
+          :key="column"
+          class="opportunity-column"
+          @dragover.prevent
+          @drop="dropOnStage(column)"
+        >
+          <header>
+            <span>{{ opportunityStageLabel(column) }}</span>
+            <strong>{{ boardItems(column).length }}</strong>
+          </header>
+          <div class="opportunity-column-body">
+            <article
+              v-for="item in boardItems(column)"
+              :key="item.id"
+              class="opportunity-card"
+              :class="{ draggable: canManage && !isTerminalOpportunityStage(item.stage) }"
+              :draggable="canManage && !isTerminalOpportunityStage(item.stage)"
+              @dragstart="startDrag(item)"
+              @dragend="draggedOpportunityId = null"
+              @click="openOpportunity(item)"
+            >
+              <span>{{ item.code }}</span>
+              <h4>{{ item.title }}</h4>
+              <p>{{ item.customerName }}</p>
+              <div>
+                <strong>{{ formatCurrency(item.expectedAmount) }}</strong>
+                <small>{{ item.probabilityPercent }}%</small>
+              </div>
+              <em>{{ item.expectedCloseDate?.slice(0, 10) || '未设成交日' }}</em>
+            </article>
+            <el-empty
+              v-if="boardItems(column).length === 0"
+              :image-size="44"
+              description="暂无"
+            />
+          </div>
+        </section>
+        <p
+          v-if="total > 100"
+          class="board-limit-note"
+        >
+          看板显示最近更新的 100 个商机，请使用搜索或阶段筛选缩小范围。
+        </p>
+      </div>
+    </template>
   </section>
 
   <OpportunityDetailDrawer

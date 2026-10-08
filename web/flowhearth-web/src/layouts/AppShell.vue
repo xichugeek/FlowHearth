@@ -105,6 +105,26 @@ const visibleFinanceMenuItems = computed(() =>
 )
 
 const pageTitle = computed(() => String(route.meta.title ?? 'FlowHearth'))
+const pageDescriptions: Record<string, string> = {
+  dashboard: '业务进展、待办与近期趋势',
+  customers: '客户关系、联系人与跟进记录',
+  opportunities: '从线索推进到成交与项目',
+  projects: '交付进度、成员与里程碑',
+  equipment: '客户设备与技术档案',
+  service: '售后工单与处理记录',
+  'finance-dashboard': '现金流、账龄与经营风险',
+  receivables: '客户应收与到账核销',
+  receipts: '收款记录与核销明细',
+  purchases: '采购订单与到货进度',
+  payables: '供应商应付与付款计划',
+  payments: '付款记录与核销明细',
+  shipments: '项目出货与签收',
+  suppliers: '供应商档案与合作记录',
+  audit: '业务操作与安全事件',
+  settings: '基础字典与界面设置',
+  system: '账号、角色与权限',
+}
+const pageDescription = computed(() => pageDescriptions[String(route.name ?? '')] ?? '')
 const canSearch = computed(() => authStore.canAny([permissions.searchUse]))
 const sidebarCollapsed = computed(
   () => appStore.sidebarCollapsed || isNarrowViewport.value,
@@ -158,6 +178,7 @@ async function handleUserCommand(command: string) {
           v-for="item in visibleBusinessMenuItems"
           :key="item.path"
           :index="item.path"
+          :aria-label="item.label"
         >
           <el-icon><component :is="item.icon" /></el-icon>
           <template #title>
@@ -167,6 +188,7 @@ async function handleUserCommand(command: string) {
         <el-sub-menu
           v-if="visibleFinanceMenuItems.length > 0"
           index="/finance"
+          aria-label="经营财务"
         >
           <template #title>
             <el-icon><Coin /></el-icon>
@@ -184,6 +206,7 @@ async function handleUserCommand(command: string) {
           v-for="item in visibleAdministrationMenuItems"
           :key="item.path"
           :index="item.path"
+          :aria-label="item.label"
         >
           <el-icon><component :is="item.icon" /></el-icon>
           <template #title>
@@ -212,6 +235,9 @@ async function handleUserCommand(command: string) {
               FLOWHEARTH
             </p>
             <h1>{{ pageTitle }}</h1>
+            <p class="page-description">
+              {{ pageDescription }}
+            </p>
           </div>
         </div>
 

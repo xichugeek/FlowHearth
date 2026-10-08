@@ -31,6 +31,9 @@ const selected = ref<ProjectDetails | null>(null); const editing = ref<ProjectDe
 const customers = ref<CustomerSummary[]>([]); const candidates = ref<ProjectMemberCandidate[]>([])
 const editingMember = ref<ProjectMemberDetails | null>(null); const editingMilestone = ref<ProjectMilestoneDetails | null>(null)
 const detailVisible = ref(false); const formVisible = ref(false); const memberVisible = ref(false); const milestoneVisible = ref(false)
+const todayParts = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date())
+const todayInChina = `${todayParts.find((item) => item.type === 'year')?.value}-${todayParts.find((item) => item.type === 'month')?.value}-${todayParts.find((item) => item.type === 'day')?.value}`
+function isOverdue(value: unknown) { const project = value as ProjectSummary; return !!project.plannedEndDate && project.plannedEndDate.slice(0, 10) < todayInChina && !['Completed', 'Cancelled'].includes(project.status) }
 
 onMounted(async () => {
   await Promise.all([loadProjects(), searchCustomers(''), loadCandidates()])
@@ -175,7 +178,16 @@ function showError(error: unknown, fallback: string) { if (error instanceof ApiE
         width="125"
       >
         <template #default="scope">
-          {{ scope.row.plannedEndDate?.slice(0, 10) || '—' }}
+          <span :class="{ 'project-overdue-date': isOverdue(scope.row) }">{{ scope.row.plannedEndDate?.slice(0, 10) || '—' }}</span>
+          <el-tag
+            v-if="isOverdue(scope.row)"
+            class="project-overdue-tag"
+            size="small"
+            type="danger"
+            effect="plain"
+          >
+            延期
+          </el-tag>
         </template>
       </el-table-column><el-table-column
         label="最近更新"

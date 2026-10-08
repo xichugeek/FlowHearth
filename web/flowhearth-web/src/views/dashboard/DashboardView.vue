@@ -18,6 +18,7 @@ import type {
 } from '../../types/dashboard'
 
 const loading = ref(false)
+const loadFailed = ref(false)
 const snapshot = ref<DashboardSnapshot | null>(null)
 
 const opportunityLabels: Record<string, string> = {
@@ -75,9 +76,11 @@ function metricValue(value: number | null | undefined, currency = false) {
 
 async function loadDashboard() {
   loading.value = true
+  loadFailed.value = false
   try {
     snapshot.value = await getDashboard()
   } catch {
+    loadFailed.value = true
     ElMessage.error('工作台数据加载失败，请稍后重试。')
   } finally {
     loading.value = false
@@ -102,11 +105,30 @@ onMounted(loadDashboard)
       </el-button>
     </div>
 
-    <div class="dashboard-metrics">
+    <el-alert
+      v-if="loadFailed"
+      title="工作台数据更新失败"
+      description="当前内容可能不是最新结果，请点击刷新重试。"
+      type="error"
+      :closable="false"
+      show-icon
+    />
+
+    <el-skeleton
+      v-if="loading && !snapshot"
+      :rows="8"
+      animated
+    />
+
+    <div
+      v-if="snapshot"
+      class="dashboard-metrics"
+    >
       <RouterLink
         v-for="item in metricCards"
         :key="item.label"
         class="dashboard-metric-card"
+        :class="{ 'is-currency': item.currency }"
         :to="item.route"
       >
         <span class="dashboard-metric-icon">
@@ -119,7 +141,10 @@ onMounted(loadDashboard)
       </RouterLink>
     </div>
 
-    <div class="dashboard-chart-grid">
+    <div
+      v-if="snapshot"
+      class="dashboard-chart-grid"
+    >
       <el-card
         v-if="snapshot?.opportunityStages.length"
         shadow="never"

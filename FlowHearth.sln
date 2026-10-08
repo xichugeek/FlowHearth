@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowHearth.UnitTests", "tests\FlowHearth.UnitTests\FlowHearth.UnitTests.csproj", "{E8867401-6311-4E6A-BDCA-C5C1BD94B707}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowHearth.IntegrationTests", "tests\FlowHearth.IntegrationTests\FlowHearth.IntegrationTests.csproj", "{33B4C8CE-067F-4344-8363-B64A3A8355B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowHearth.DemoSeed", "src\FlowHearth.DemoSeed\FlowHearth.DemoSeed.csproj", "{2B897F92-9D6F-44E7-B986-D9757B44BEDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +117,18 @@ Global
 		{33B4C8CE-067F-4344-8363-B64A3A8355B4}.Release|x64.Build.0 = Release|Any CPU
 		{33B4C8CE-067F-4344-8363-B64A3A8355B4}.Release|x86.ActiveCfg = Release|Any CPU
 		{33B4C8CE-067F-4344-8363-B64A3A8355B4}.Release|x86.Build.0 = Release|Any CPU
+		{2B897F92-9D6F-44E7-B986-D9757B44BEDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B897F92-9D6F-44E7-B986-D9757B44BEDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B897F92-9D6F-44E7-B986-D9757B44BEDF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2B897F92-9D6F-44E7-B986-D9757B44BEDF}.Debug|x64.Build.0 = Debug|Any CPU
+		{2B897F92-9D6F-44E7-B986-D9757B44BEDF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2B897F92-9D6F-44E7-B986-D9757B44BEDF}.Debug|x86.Build.0 = Debug|Any CPU
+		{2B897F92-9D6F-44E7-B986-D9757B44BEDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B897F92-9D6F-44E7-B986-D9757B44BEDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B897F92-9D6F-44E7-B986-D9757B44BEDF}.Release|x64.ActiveCfg = Release|Any CPU
+		{2B897F92-9D6F-44E7-B986-D9757B44BEDF}.Release|x64.Build.0 = Release|Any CPU
+		{2B897F92-9D6F-44E7-B986-D9757B44BEDF}.Release|x86.ActiveCfg = Release|Any CPU
+		{2B897F92-9D6F-44E7-B986-D9757B44BEDF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,5 +141,6 @@ Global
 		{CB975D6C-BC8F-4F20-B6D2-4305B58E6F8C} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{E8867401-6311-4E6A-BDCA-C5C1BD94B707} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 		{33B4C8CE-067F-4344-8363-B64A3A8355B4} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+		{2B897F92-9D6F-44E7-B986-D9757B44BEDF} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal

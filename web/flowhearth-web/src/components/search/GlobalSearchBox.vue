@@ -69,6 +69,7 @@ onBeforeUnmount(() => {
   <el-select
     v-model="selectedKey"
     class="global-search"
+    aria-label="全局搜索"
     filterable
     remote
     clearable
